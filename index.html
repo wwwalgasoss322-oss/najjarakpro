@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نجارك - NAJJARAK</title>
+<style>
+body{margin:0;font-family:sans-serif;background:#1a120b;color:#fff;text-align:center}
+header{padding:20px;background:linear-gradient(#3a2410,#1a120b);border-bottom:3px solid #d4a017}
+.logo{font-size:42px;color:#d4a017;font-weight:900}
+.logo-en{letter-spacing:5px;color:#fff;font-size:18px}
+.langs{margin:15px}
+.langs button{background:#d4a017;border:none;padding:8px 12px;margin:3px;border-radius:20px;font-weight:bold;cursor:pointer}
+.card{background:#2b1d0f;margin:15px;padding:20px;border-radius:15px;border:1px solid #d4a017}
+.btn{display:block;background:#25D366;color:#fff;padding:15px;margin:10px;border-radius:12px;text-decoration:none;font-size:18px;font-weight:bold}
+.btn-gold{background:#d4a017;color:#000}
+input,select{width:90%;padding:12px;margin:8px;border-radius:10px;border:none}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">نجارك</div>
+<div class="logo-en">NAJJARAK</div>
+<p id="sub">ورشة زيرو - بورتسودان</p>
+<div class="langs">
+<button onclick="setLang('ar')">العربية</button>
+<button onclick="setLang('en')">English</button>
+<button onclick="setLang('tr')">Türkçe</button>
+<button onclick="setLang('fr')">Français</button>
+<button onclick="setLang('am')">አማርኛ</button>
+</div>
+</header>
+
+<div class="card">
+<h2 id="t1">أهلاً بيك في ورشة نجارك</h2>
+<p id="t2">دواليب، سراير، مطابخ، أبواب - شغل نضيف ومضمون</p>
+<a class="btn" href="https://wa.me/249922168969" id="t3">اطلب الآن عبر واتساب - 0922168969</a>
+<a class="btn btn-gold" href="#calc" id="t4">حاسبة الأسعار</a>
+</div>
+
+<div class="card" id="calc">
+<h3 id="t5">حاسبة الدولاب</h3>
+<input type="number" id="len" placeholder="الطول بالمتر">
+<input type="number" id="wid" placeholder="العرض بالمتر">
+<input type="number" id="hei" placeholder="الارتفاع بالمتر">
+<button class="btn btn-gold" onclick="calc()" id="t6">احسب السعر</button>
+<p id="result"></p>
+</div>
+
+<div class="card">
+<h3 id="t7">العروض</h3>
+<p id="t8">🔥 عرض بورتسودان: خصم 10% على أي دولاب هذا الأسبوع</p>
+<p>كود الخصم: <b>ZERO10</b></p>
+</div>
+
+<script>
+const L = {
+ar:{sub:"ورشة زيرو - بورتسودان",t1:"أهلاً بيك في ورشة نجارك",t2:"دواليب، سراير، مطابخ، أبواب - شغل نضيف ومضمون",t3:"اطلب الآن عبر واتساب - 0922168969",t4:"حاسبة الأسعار",t5:"حاسبة الدولاب",t6:"احسب السعر",t7:"العروض",t8:"🔥 عرض بورتسودان: خصم 10% على أي دولاب هذا الأسبوع"},
+en:{sub:"Zero Workshop - Port Sudan",t1:"Welcome to Najjarak Workshop",t2:"Wardrobes, Beds, Kitchens, Doors - Clean & Guaranteed Work",t3:"Order Now on WhatsApp - 0922168969",t4:"Price Calculator",t5:"Wardrobe Calculator",t6:"Calculate Price",t7:"Offers",t8:"🔥 Port Sudan Offer: 10% OFF on any wardrobe this week"},
+tr:{sub:"Zero Atölyesi - Port Sudan",t1:"Najjarak Atölyesine Hoş Geldiniz",t2:"Dolap, Yatak, Mutfak, Kapı - Temiz ve Garantili İş",t3:"WhatsApp ile Sipariş Ver - 0922168969",t4:"Fiyat Hesaplayıcı",t5:"Dolap Hesaplayıcı",t6:"Fiyatı Hesapla",t7:"Teklifler",t8:"🔥 Port Sudan Teklifi: Bu hafta her dolapta %10 indirim"},
+fr:{sub:"Atelier Zero - Port Soudan",t1:"Bienvenue à l'atelier Najjarak",t2:"Armoires, Lits, Cuisines, Portes - Travail propre et garanti",t3:"Commander sur WhatsApp - 0922168969",t4:"Calculateur de prix",t5:"Calculateur d'armoire",t6:"Calculer le prix",t7:"Offres",t8:"🔥 Offre Port Soudan: 10% de réduction sur toute armoire cette semaine"},
+am:{sub:"ዜሮ ወርክሾፕ - ፖርት ሱዳን",t1:"እንኳን ወደ ናጃራክ ወርክሾፕ በደህና መጡ",t2:"ቁምሳጥን፣ አልጋ፣ ኩሽና፣ በር - ንጹህ እና የተረጋገጠ ስራ",t3:"አሁን በዋትስአፕ እዘዝ - 0922168969",t4:"የዋጋ ካልኩሌተር",t5:"የቁምሳጥን ካልኩሌተር",t6:"ዋጋ አስላ",t7:"ቅናሾች",t8:"🔥 የፖርት ሱዳን ቅናሽ: በዚህ ሳምንት በማንኛውም ቁምሳጥን ላይ 10% ቅናሽ"}
+};
+function setLang(l){
+let d=L[l];
+for(let k in d){document.getElementById(k).innerText=d[k]}
+document.dir = l==='ar'?'rtl':'ltr';
+}
+function calc(){
+let a=+document.getElementById('len').value;
+let b=+document.getElementById('wid').value;
+let c=+document.getElementById('hei').value;
+let area=a*b*c;
+let price=Math.round(area*85000);
+document.getElementById('result').innerText = "السعر التقريبي: " + price + " جنيه - تواصل واتساب للتأكيد";
+}
+</script>
+</body>
+</html>
