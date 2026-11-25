@@ -3,78 +3,232 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>نجارك - NAJJARAK</title>
+<title>نجارك برو - NAJJARAK PRO</title>
 <style>
-body{margin:0;font-family:sans-serif;background:#1a120b;color:#fff;text-align:center}
-header{padding:20px;background:linear-gradient(#3a2410,#1a120b);border-bottom:3px solid #d4a017}
-.logo{font-size:42px;color:#d4a017;font-weight:900}
-.logo-en{letter-spacing:5px;color:#fff;font-size:18px}
-.langs{margin:15px}
-.langs button{background:#d4a017;border:none;padding:8px 12px;margin:3px;border-radius:20px;font-weight:bold;cursor:pointer}
-.card{background:#2b1d0f;margin:15px;padding:20px;border-radius:15px;border:1px solid #d4a017}
-.btn{display:block;background:#25D366;color:#fff;padding:15px;margin:10px;border-radius:12px;text-decoration:none;font-size:18px;font-weight:bold}
-.btn-gold{background:#d4a017;color:#000}
-input,select{width:90%;padding:12px;margin:8px;border-radius:10px;border:none}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{background:#0f0f0f;color:#fff}
+.hidden{display:none!important}
+#splash{position:fixed;inset:0;background:linear-gradient(180deg,#1a120b,#0f0f0f);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:100;text-align:center;padding:20px}
+#splash .logo{font-size:90px;animation:bounce 1.2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+#splash h1{font-size:42px;color:#f5a623;margin:10px 0 5px}
+#splash p{color:#aaa}
+#splash .bar{width:220px;height:8px;background:#333;border-radius:10px;margin-top:25px;overflow:hidden}
+#splash .fill{height:100%;width:0%;background:#f5a623;transition:width .3s}
+#splash .pct{margin-top:10px;color:#f5a623;font-weight:bold}
+header{background:#1a120b;padding:15px;text-align:center;border-bottom:2px solid #f5a623;position:sticky;top:0;z-index:10}
+header h2{color:#f5a623;font-size:24px}
+header p{color:#ccc;font-size:13px}
+.progress{display:flex;gap:5px;padding:12px;justify-content:center}
+.progress div{flex:1;max-width:60px;height:8px;background:#333;border-radius:10px}
+.progress div.active{background:#f5a623}
+.progress div.done{background:#27ae60}
+.step-box{padding:18px;max-width:600px;margin:0 auto}
+.step-title{font-size:22px;margin-bottom:5px}
+.step-sub{color:#aaa;font-size:14px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#1e1e1e;border:2px solid #333;border-radius:16px;padding:18px 10px;text-align:center;cursor:pointer}
+.card.selected{border-color:#f5a623;background:#2a1e0f;box-shadow:0 0 0 2px #f5a623}
+.card .em{font-size:38px;display:block;margin-bottom:8px}
+.card b{font-size:15px}
+.card small{color:#aaa;display:block;margin-top:4px;font-size:12px}
+.btn{width:100%;padding:16px;background:#f5a623;color:#000;border:none;border-radius:14px;font-size:18px;font-weight:900;margin-top:20px;cursor:pointer}
+.btn:disabled{opacity:.4}
+.btn2{width:100%;padding:13px;background:transparent;color:#fff;border:1px solid #444;border-radius:14px;margin-top:10px;cursor:pointer}
+input,select{width:100%;padding:14px;background:#1e1e1e;border:1px solid #444;border-radius:12px;color:#fff;font-size:16px;margin-bottom:12px;outline:none}
+input:focus,select:focus{border-color:#f5a623}
+label{font-size:14px;color:#ccc;display:block;margin-bottom:6px}
+.info-box{background:#1e1e1e;border:1px dashed #f5a623;border-radius:16px;padding:16px;margin-top:15px}
+.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #333;font-size:14px}
+.note{background:#2a1e0f;border:1px solid #f5a623;border-radius:12px;padding:12px;font-size:13px;color:#ffcc70;margin-top:15px;text-align:center}
+.unit-tag{display:inline-block;background:#f5a623;color:#000;font-size:12px;font-weight:900;padding:3px 10px;border-radius:20px;margin-top:6px}
+.footer{text-align:center;color:#555;font-size:12px;padding:20px}
 </style>
 </head>
 <body>
 
-<header>
-<div class="logo">نجارك</div>
-<div class="logo-en">NAJJARAK</div>
-<p id="sub">ورشة زيرو - بورتسودان</p>
-<div class="langs">
-<button onclick="setLang('ar')">العربية</button>
-<button onclick="setLang('en')">English</button>
-<button onclick="setLang('tr')">Türkçe</button>
-<button onclick="setLang('fr')">Français</button>
-<button onclick="setLang('am')">አማርኛ</button>
-</div>
-</header>
+<div id="splash"><div class="logo">🪚</div><h1>نجارك برو</h1><p>NAJJARAK PRO - ورشة زيرو</p><p style="margin-top:8px">بورتسودان | جودة تستاهل بيتك</p><div class="bar"><div class="fill" id="fill"></div></div><div class="pct" id="pct">0%</div></div>
+<header><h2>🪚 نجارك برو</h2><p>ورشة زيرو - بورتسودان - 0922168969</p></header>
+<div class="progress" id="progress"><div class="active"></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
-<div class="card">
-<h2 id="t1">أهلاً بيك في ورشة نجارك</h2>
-<p id="t2">دواليب، سراير، مطابخ، أبواب - شغل نضيف ومضمون</p>
-<a class="btn" href="https://wa.me/249922168969" id="t3">اطلب الآن عبر واتساب - 0922168969</a>
-<a class="btn btn-gold" href="#calc" id="t4">حاسبة الأسعار</a>
+<div class="step-box" id="step1">
+  <div class="step-title">الخطوة 1 من 10: شنو داير تعمل؟</div>
+  <div class="step-sub">اختار نوع الشغل، كل نوع بيتقاس بوحدة مختلفة</div>
+  <div class="grid" id="typeGrid"></div>
+  <button class="btn" id="next1" disabled onclick="goStep(2)">التالي ➡️</button>
+  <div class="note">💡 الأسعار حسب سعر اليوم - بنرسل ليك السعر النهائي في الواتساب</div>
 </div>
 
-<div class="card" id="calc">
-<h3 id="t5">حاسبة الدولاب</h3>
-<input type="number" id="len" placeholder="الطول بالمتر">
-<input type="number" id="wid" placeholder="العرض بالمتر">
-<input type="number" id="hei" placeholder="الارتفاع بالمتر">
-<button class="btn btn-gold" onclick="calc()" id="t6">احسب السعر</button>
-<p id="result"></p>
+<div class="step-box hidden" id="step2">
+  <div class="step-title">الخطوة 2 من 10: المقاسات والكمية</div>
+  <div class="step-sub" id="step2Sub">اكتب المقاسات</div>
+  
+  <div id="boxDolab" class="hidden">
+    <label>عدد الضلف</label>
+    <select id="doors" onchange="calc()"><option value="2">2 ضلفة</option><option value="3" selected>3 ضلفة</option><option value="4">4 ضلفة</option><option value="5">5 ضلفة</option><option value="6">6 ضلفة</option><option value="8">8 ضلفة</option></select>
+    <label>الطول (متر)</label><input type="number" id="len1" value="2" step="0.1" oninput="calc()">
+    <label>الارتفاع (متر)</label><input type="number" id="hei1" value="2.2" step="0.1" oninput="calc()">
+    <div class="note">دولاب الملابس والحافلة: الحساب بالضلفة - الضلفة بـ 600 ألف (سعر اليوم)</div>
+  </div>
+
+  <div id="boxMatbakh" class="hidden">
+    <label>طول المطبخ بالمتر (متر طولي)</label><input type="number" id="matbakhLen" value="3" step="0.1" oninput="calc()">
+    <label>هل داير فوق وتحت ولا تحت بس؟</label>
+    <select id="matbakhType" onchange="calc()"><option>فوق وتحت</option><option>تحت بس</option><option>فوق بس</option></select>
+    <div class="note">دولاب المطبخ: الحساب بالمتر الطولي - حسب سعر اليوم</div>
+  </div>
+
+  <!-- السراير - التعديل الصح -->
+  <div id="boxSarir" class="hidden">
+    <label>نوع السرير</label>
+    <select id="sarirKind" onchange="updateSarirSizes()">
+      <option value="mufrad">سرير صغير (مفرد) - بالجوز</option>
+      <option value="double">سرير دبل - سرير واحد</option>
+    </select>
+    <label>عرض السرير</label>
+    <select id="sarirSize" onchange="calc()">
+      <option value="90">90 سم</option>
+      <option value="100">100 سم</option>
+      <option value="110">110 سم</option>
+      <option value="120" selected>120 سم</option>
+    </select>
+    <label id="sarirQtyLabel">الكمية - بالجوز</label>
+    <select id="sarirJoz" onchange="calc()">
+      <option value="1" selected>1 جوز (سريرين)</option>
+      <option value="2">2 جوز (4 سراير)</option>
+      <option value="3">3 جوز (6 سراير)</option>
+    </select>
+    <div class="note" id="sarirNote">السرير الصغير: بالجوز - الجوز = سريرين<br>المفرد: 90 / 100 / 110 / 120 سم - الطول 180 سم<br>الدبل: 140 / 150 / 160 / 180 سم - الطول 200 سم - ودا سرير واحد براهو</div>
+  </div>
+
+  <div id="boxGeneral" class="hidden">
+    <label>الطول (متر)</label><input type="number" id="len" value="2" step="0.1" oninput="calc()">
+    <label>العرض (متر)</label><input type="number" id="wid" value="1.8" step="0.1" oninput="calc()">
+    <label>العمق (متر)</label><input type="number" id="dep" value="0.6" step="0.1" oninput="calc()">
+  </div>
+
+  <div class="info-box">
+    <div class="info-row"><span>النوع المختار</span><b id="showType">-</b></div>
+    <div class="info-row"><span>وحدة القياس</span><b id="showUnit" style="color:#f5a623">-</b></div>
+    <div class="info-row"><span>الكمية / المقاس</span><b id="showDetail">-</b></div>
+    <div class="info-row" style="border:none"><span>السعر</span><b style="color:#f5a623">حسب سعر اليوم ✅</b></div>
+  </div>
+  <button class="btn" onclick="goStep(3)">التالي ➡️</button>
+  <button class="btn2" onclick="goStep(1)">⬅️ رجوع</button>
 </div>
 
-<div class="card">
-<h3 id="t7">العروض</h3>
-<p id="t8">🔥 عرض بورتسودان: خصم 10% على أي دولاب هذا الأسبوع</p>
-<p>كود الخصم: <b>ZERO10</b></p>
+<div class="step-box hidden" id="step3">
+  <div class="step-title">الخطوة 3 من 10: تأكيد الطلب</div>
+  <div class="step-sub">راجع طلبك وارسلو لينا واتساب</div>
+  <div class="info-box">
+    <div class="info-row"><span>النوع</span><b id="finalType">-</b></div>
+    <div class="info-row"><span>وحدة القياس</span><b id="finalUnit">-</b></div>
+    <div class="info-row"><span>التفاصيل</span><b id="finalDetail">-</b></div>
+  </div>
+  <div class="note">📲 دوس الزر، حتفتح ليك واتساب برسالة جاهزة فيها كل تفاصيلك</div>
+  <button class="btn" onclick="sendWhats()">📲 اطلب سعر اليوم في الواتساب</button>
+  <button class="btn2" onclick="goStep(2)">⬅️ رجوع</button>
 </div>
+
+<div class="footer">نجارك برو © 2026 - ورشة زيرو - بورتسودان<br>صُنع بحب في السودان 🇸🇩</div>
 
 <script>
-const L = {
-ar:{sub:"ورشة زيرو - بورتسودان",t1:"أهلاً بيك في ورشة نجارك",t2:"دواليب، سراير، مطابخ، أبواب - شغل نضيف ومضمون",t3:"اطلب الآن عبر واتساب - 0922168969",t4:"حاسبة الأسعار",t5:"حاسبة الدولاب",t6:"احسب السعر",t7:"العروض",t8:"🔥 عرض بورتسودان: خصم 10% على أي دولاب هذا الأسبوع"},
-en:{sub:"Zero Workshop - Port Sudan",t1:"Welcome to Najjarak Workshop",t2:"Wardrobes, Beds, Kitchens, Doors - Clean & Guaranteed Work",t3:"Order Now on WhatsApp - 0922168969",t4:"Price Calculator",t5:"Wardrobe Calculator",t6:"Calculate Price",t7:"Offers",t8:"🔥 Port Sudan Offer: 10% OFF on any wardrobe this week"},
-tr:{sub:"Zero Atölyesi - Port Sudan",t1:"Najjarak Atölyesine Hoş Geldiniz",t2:"Dolap, Yatak, Mutfak, Kapı - Temiz ve Garantili İş",t3:"WhatsApp ile Sipariş Ver - 0922168969",t4:"Fiyat Hesaplayıcı",t5:"Dolap Hesaplayıcı",t6:"Fiyatı Hesapla",t7:"Teklifler",t8:"🔥 Port Sudan Teklifi: Bu hafta her dolapta %10 indirim"},
-fr:{sub:"Atelier Zero - Port Soudan",t1:"Bienvenue à l'atelier Najjarak",t2:"Armoires, Lits, Cuisines, Portes - Travail propre et garanti",t3:"Commander sur WhatsApp - 0922168969",t4:"Calculateur de prix",t5:"Calculateur d'armoire",t6:"Calculer le prix",t7:"Offres",t8:"🔥 Offre Port Soudan: 10% de réduction sur toute armoire cette semaine"},
-am:{sub:"ዜሮ ወርክሾፕ - ፖርት ሱዳን",t1:"እንኳን ወደ ናጃራክ ወርክሾፕ በደህና መጡ",t2:"ቁምሳጥን፣ አልጋ፣ ኩሽና፣ በር - ንጹህ እና የተረጋገጠ ስራ",t3:"አሁን በዋትስአፕ እዘዝ - 0922168969",t4:"የዋጋ ካልኩሌተር",t5:"የቁምሳጥን ካልኩሌተር",t6:"ዋጋ አስላ",t7:"ቅናሾች",t8:"🔥 የፖርት ሱዳን ቅናሽ: በዚህ ሳምንት በማንኛውም ቁምሳጥን ላይ 10% ቅናሽ"}
-};
-function setLang(l){
-let d=L[l];
-for(let k in d){document.getElementById(k).innerText=d[k]}
-document.dir = l==='ar'?'rtl':'ltr';
+let selectedType=null;
+let types=[
+  {n:'دولاب ملابس',e:'👔',unit:'بالضلفة',d:'الضلفة بـ 600 ألف',kind:'dolab'},
+  {n:'حافلة',e:'🗄️',unit:'بالضلفة',d:'زي الدولاب - بالضلفة',kind:'dolab'},
+  {n:'دولاب مطبخ',e:'🍳',unit:'بالمتر',d:'بالمتر الطولي',kind:'matbakh'},
+  {n:'سرير',e:'🛏️',unit:'صغير بالجوز / دبل واحد',d:'مفرد بالجوز - دبل سرير واحد',kind:'sarir'},
+  {n:'باب خشب',e:'🚪',unit:'بالقطعة',d:'باب غرفة / رئيسي',kind:'general'},
+  {n:'شباك',e:'🪟',unit:'بالقطعة',d:'مع سلك',kind:'general'},
+  {n:'مكتب',e:'💻',unit:'بالقطعة',d:'مكتب دراسة / شغل',kind:'general'},
+  {n:'طقم سفرة',e:'🍽️',unit:'بالطقم',d:'6 كراسي',kind:'general'},
+  {n:'ركنية / كنبة',e:'🛋️',unit:'بالقطعة',d:'خشب زان',kind:'general'},
+  {n:'تسريحة',e:'🪞',unit:'بالقطعة',d:'مع مراية',kind:'general'},
+  {n:'طاولة تلفزيون',e:'📺',unit:'بالقطعة',d:'شاشة + رفوف',kind:'general'},
+  {n:'رفوف حائط',e:'📚',unit:'بالمتر',d:'مكتبة',kind:'general'},
+  {n:'كومودينو',e:'🗄️',unit:'بالقطعة',d:'جنب السرير',kind:'general'},
+  {n:'غرفة نوم كاملة',e:'🏠',unit:'بالغرفة',d:'دولاب + سرير + تسريحة',kind:'general'},
+  {n:'غرفة أطفال',e:'🧒',unit:'بالغرفة',d:'سريرين + دولاب',kind:'general'},
+  {n:'مكتبة',e:'📖',unit:'بالمتر',d:'كتب / ديكور',kind:'general'},
+  {n:'كرسي',e:'🪑',unit:'بالقطعة',d:'كرسي سفرة',kind:'general'},
+  {n:'تربيزة',e:'🪵',unit:'بالقطعة',d:'تربيزة وسط',kind:'general'},
+  {n:'بوفيه',e:'🍷',unit:'بالقطعة',d:'بوفيه',kind:'general'},
+  {n:'شغل تاني',e:'🔨',unit:'حسب الشغل',d:'اكتب لينا في الواتساب',kind:'general'}
+];
+let grid=document.getElementById('typeGrid');
+types.forEach((t)=>{
+  let d=document.createElement('div');
+  d.className='card'; d.innerHTML=`<span class="em">${t.e}</span><b>${t.n}</b><small>${t.d}</small><span class="unit-tag">${t.unit}</span>`;
+  d.onclick=()=>{ document.querySelectorAll('.card').forEach(c=>c.classList.remove('selected')); d.classList.add('selected'); selectedType=t; document.getElementById('next1').disabled=false; calc(); };
+  grid.appendChild(d);
+});
+function updateSarirSizes(){
+  let kind=document.getElementById('sarirKind').value;
+  let sel=document.getElementById('sarirSize');
+  let qty=document.getElementById('sarirJoz');
+  let qtyLabel=document.getElementById('sarirQtyLabel');
+  sel.innerHTML='';
+  qty.innerHTML='';
+  if(kind==='mufrad'){
+    [90,100,110,120].forEach(o=>{ let op=document.createElement('option'); op.value=o; op.text=o+' سم'; sel.appendChild(op); });
+    sel.value=120;
+    qtyLabel.innerText='الكمية - بالجوز';
+    let opts=[['1','1 جوز (سريرين)'],['2','2 جوز (4 سراير)'],['3','3 جوز (6 سراير)'],['4','4 جوز (8 سراير)']];
+    opts.forEach(o=>{ let op=document.createElement('option'); op.value=o[0]; op.text=o[1]; qty.appendChild(op); });
+  } else {
+    [140,150,160,180].forEach(o=>{ let op=document.createElement('option'); op.value=o; op.text=o+' سم'; sel.appendChild(op); });
+    sel.value=160;
+    qtyLabel.innerText='الكمية - عدد السراير الدبل';
+    let opts=[['1','1 سرير دبل'],['2','2 سرير دبل'],['3','3 سرير دبل']];
+    opts.forEach(o=>{ let op=document.createElement('option'); op.value=o[0]; op.text=o[1]; qty.appendChild(op); });
+  }
+  calc();
+}
+function goStep(n){
+  [1,2,3].forEach(i=>document.getElementById('step'+i).classList.add('hidden'));
+  document.getElementById('step'+n).classList.remove('hidden');
+  let bars=document.querySelectorAll('#progress div');
+  bars.forEach((b,idx)=>{ b.className = idx < n ? 'done' : idx==n ? 'active' : ''; });
+  window.scrollTo(0,0); calc();
+  if(n==3){
+    document.getElementById('finalType').innerText=selectedType?selectedType.n:'-';
+    document.getElementById('finalUnit').innerText=selectedType?selectedType.unit:'-';
+    document.getElementById('finalDetail').innerText=document.getElementById('showDetail').innerText;
+  }
 }
 function calc(){
-let a=+document.getElementById('len').value;
-let b=+document.getElementById('wid').value;
-let c=+document.getElementById('hei').value;
-let area=a*b*c;
-let price=Math.round(area*85000);
-document.getElementById('result').innerText = "السعر التقريبي: " + price + " جنيه - تواصل واتساب للتأكيد";
+  if(!selectedType) return;
+  let kind=selectedType.kind;
+  document.getElementById('boxDolab').classList.toggle('hidden',kind!=='dolab');
+  document.getElementById('boxMatbakh').classList.toggle('hidden',kind!=='matbakh');
+  document.getElementById('boxSarir').classList.toggle('hidden',kind!=='sarir');
+  document.getElementById('boxGeneral').classList.toggle('hidden',kind!=='general');
+  document.getElementById('showType').innerText=selectedType.n;
+  document.getElementById('showUnit').innerText=selectedType.unit;
+  let detail='';
+  if(kind==='dolab'){ detail=document.getElementById('doors').value+' ضلفة - الطول '+document.getElementById('len1').value+' متر - الارتفاع '+document.getElementById('hei1').value+' متر'; document.getElementById('step2Sub').innerText='دولاب الملابس والحافلة بيتقاسوا بالضلفة'; }
+  if(kind==='matbakh'){ detail=document.getElementById('matbakhLen').value+' متر طولي - '+document.getElementById('matbakhType').value; document.getElementById('step2Sub').innerText='دولاب المطبخ بيتقاس بالمتر الطولي'; }
+  if(kind==='sarir'){
+    let sk=document.getElementById('sarirKind').value;
+    let width=document.getElementById('sarirSize').value;
+    let qtyText=document.getElementById('sarirJoz').options[document.getElementById('sarirJoz').selectedIndex].text;
+    if(sk==='mufrad'){
+      detail='سرير صغير (مفرد) - العرض '+width+' سم x الطول 180 سم - الكمية: '+qtyText;
+    } else {
+      detail='سرير دبل (سرير واحد كبير) - العرض '+width+' سم x الطول 200 سم - الكمية: '+qtyText;
+    }
+    document.getElementById('step2Sub').innerText='الصغير بالجوز - الدبل سرير واحد براهو';
+  }
+  if(kind==='general'){ detail=document.getElementById('len').value+' x '+document.getElementById('wid').value+' x '+document.getElementById('dep').value+' متر'; document.getElementById('step2Sub').innerText='اكتب المقاسات بالمتر'; }
+  document.getElementById('showDetail').innerText=detail;
+  window._detail=detail;
 }
+function sendWhats(){
+  let msg=`سلام عليكم ورشة زيرو، انا داير اطلب من نجارك برو:%0A%0Aالنوع: ${selectedType?selectedType.n:'-'}%0Aوحدة القياس: ${selectedType?selectedType.unit:'-'}%0Aالتفاصيل: ${window._detail||'-'}%0A%0Aممكن ترسل لي سعر اليوم؟`;
+  window.open('https://wa.me/249922168969?text='+msg,'_blank');
+}
+let p=0; let iv=setInterval(()=>{ p+=10; document.getElementById('fill').style.width=p+'%'; document.getElementById('pct').innerText=p+'%'; if(p>=100){ clearInterval(iv); setTimeout(()=>{ document.getElementById('splash').style.display='none'; },300); } },120);
 </script>
 </body>
-</html>
+    </html>
