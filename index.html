@@ -309,5 +309,10 @@ function sendWhats(){
 }
 let p=0; let iv=setInterval(()=>{ p+=10; document.getElementById('fill').style.width=p+'%'; document.getElementById('pct').innerText=p+'%'; if(p>=100){ clearInterval(iv); setTimeout(()=>{ document.getElementById('splash').style.display='none'; },300); } },120);
 </script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
+</script>
 </body>
   </html>
